@@ -14,8 +14,6 @@ tickets = {
     5: ['E2E_2', 'API_61']
 }
 
-tickets_by_type = {}
-
 # вспомогательная функция работы со списками
 def delete_duplicates_in_lst(ticket:str, lst_tickets:list, is_exist:bool):
     count = lst_tickets.count(ticket)
@@ -38,6 +36,7 @@ def delete_duplicates():
     tmp_tickets = []
     for lst in tickets.values():
         tmp_tickets.extend(lst)
+    tmp_tickets = set(tmp_tickets)
     for ticket in tmp_tickets:
         first_occurrence = False
         for key, val in tickets.items():
@@ -47,6 +46,11 @@ def delete_duplicates():
 def unique_tickets(types:dict, tickets:dict):
     return dict(zip(types.values(), tickets.values()))
 
+
+delete_duplicates()                                 # удаление дублей из списков тикетов
+tickets_by_type = unique_tickets(types, tickets)    # формировани словаря списков уникальных тикетов по типам багов
+print(tickets_by_type)
+
 # пример итогового словаря из условия задания:
 # tickets_by_type = {
 #     'Блокирующий': ['API_45', 'API_76', 'E2E_4'],
@@ -55,7 +59,3 @@ def unique_tickets(types:dict, tickets:dict):
 #     'Незначительный': ['E2E_9'],
 #     'Тривиальный': ['API_61']
 # }
-
-delete_duplicates()                                 # удаление дублей из списков тикетов
-tickets_by_type = unique_tickets(types, tickets)    # формировани словаря списков уникальных тикетов по типам багов
-print(tickets_by_type)
